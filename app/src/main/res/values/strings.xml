@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Educational Practice</string>
+    <string name="name_public_group">Doctor TX - A rascal and fool</string>
+    <string name="date_published">27 февраля в 1:44</string>
+    <string name="channel_avatar">Channel avatar</string>
+    <string name="action_button_with_post">Action button with post</string>
+    <string name="text_from_post">My second completed training work.</string>
+    <string name="post_image">Post image</string>
+    <string name="it_is_like">it is Like</string>
+    <string name="it_is_comments">it is comments</string>
+    <string name="it_is_repost">it is repost</string>
+    <string name="these_are_views">These are views</string>
 </resources>
