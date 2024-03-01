@@ -8,4 +8,5 @@ interface OnInteractionListener{
     fun onRepost(post: Post) {}
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
+    fun onView(post: Post) {}
 }

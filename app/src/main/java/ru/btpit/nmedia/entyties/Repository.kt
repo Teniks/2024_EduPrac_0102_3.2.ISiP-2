@@ -55,11 +55,14 @@ class PostRepositoryInMemoryImpl: PostRepository {
             posts = listOf(
                 post.copy(
                     id = nextId(),
-                    published = time,
+                    published = time
                 )) + posts
             data.value = posts
+            view(lastId)
             return
         }
+
+
 
         posts = posts.map{
             if(it.id != post.id) it else it.copy(contentText = post.contentText)

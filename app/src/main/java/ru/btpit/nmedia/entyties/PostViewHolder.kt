@@ -30,17 +30,23 @@ class PostViewHolder(
                 binding.imagePost.requestLayout()
             }
             published.text = post.published
-            textLike.text = convertForm(post.quantityLikes)
-            textComment.text = convertForm(post.quantityComments)
-            textRepost.text = convertForm(post.quantityReposts)
+            like.text = convertForm(post.quantityLikes)
+            comment.text = convertForm(post.quantityComments)
+            repost.text = convertForm(post.quantityReposts)
             textViews.text = convertForm(post.quantityViews)
 
-            like.setImageResource(
+            like.isChecked = post.likedByMe
+            /*like.setImageResource(
                 if(post.likedByMe) R.drawable.like_active else R.drawable.like_negative
-            )
+            )*/
+            //Прежняя и новая реализация
+
             like.setOnClickListener{
                 listener.onLike(post)
             }
+
+            like.isChecked = post.likedByMe
+            like.text = convertForm(post.quantityLikes)
 
             comment.setOnClickListener{
                 listener.onComment(post)

@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
                 override fun onRepost(post: Post) {
                     viewModel.repost(post.id)
                 }
+
+                override fun onView(post: Post) {
+                    viewModel.view(post.id)
+                }
             })
 
         binding.list.adapter = adapter
