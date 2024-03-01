@@ -10,4 +10,7 @@
     <string name="it_is_comments">it is comments</string>
     <string name="it_is_repost">it is repost</string>
     <string name="these_are_views">These are views</string>
+    <string name="finish_editing_checkmark">Finish editing checkmark</string>
+    <string name="cancel_the_changes">Cancel the changes</string>
+    <string name="edit_post">Edit post</string>
 </resources>

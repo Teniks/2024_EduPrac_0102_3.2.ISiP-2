@@ -3,19 +3,17 @@ package ru.btpit.nmedia.entyties
 import android.app.Application
 import android.content.Context
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import ru.btpit.nmedia.R
+import ru.btpit.nmedia.interfaces.PostRepository
+import java.time.LocalDateTime
+import java.util.Calendar
 import kotlin.random.Random
 
-interface PostRepository{
-    fun getAll(): LiveData<List<Post>>
-    fun likeById(id: Long)
-    fun repost(id: Long)
-    fun comment(id: Long)
-    fun view(id: Long)
-}
+
 class PostRepositoryInMemoryImpl: PostRepository {
 
     private var posts = listOf(
@@ -42,16 +40,32 @@ class PostRepositoryInMemoryImpl: PostRepository {
             contentPath = R.drawable.first
         )
     )
+    private val data = MutableLiveData(posts.toList())
+    override fun getAll(): LiveData<List<Post>> = data
 
-    public fun addListPosts(post: Post){
-        val mutableList = posts.toMutableList()
-        mutableList.add(post)
-        posts = mutableList.toList()
+    private var lastId: Long = 2
+    private fun nextId(): Long {
+        lastId++
+        return lastId
     }
 
-    private val data = MutableLiveData(posts.toList())
+    override fun save(post: Post){
+        if(post.id == 0L){
+            val time = LocalDateTime.now().dayOfMonth.toString() + " " + LocalDateTime.now().month + " " + LocalDateTime.now().hour + ":" + LocalDateTime.now().minute
+            posts = listOf(
+                post.copy(
+                    id = nextId(),
+                    published = time,
+                )) + posts
+            data.value = posts
+            return
+        }
 
-    override fun getAll(): LiveData<List<Post>> = data
+        posts = posts.map{
+            if(it.id != post.id) it else it.copy(contentText = post.contentText)
+        }
+        data.value = posts
+    }
 
     override fun likeById(id: Long) {
         posts = posts.map{
@@ -82,4 +96,19 @@ class PostRepositoryInMemoryImpl: PostRepository {
         data.value = posts
     }
 
+    override fun removeById(id: Long) {
+        posts = posts.filter { it.id != id }
+        data.value = posts
+    }
+
+    override fun edit(post: Post, newText: String) {
+        val time = LocalDateTime.now().dayOfMonth.toString() + " " + LocalDateTime.now().month + " " + LocalDateTime.now().hour + ":" + LocalDateTime.now().minute
+        posts = listOf(
+            post.copy(
+                contentText = newText,
+                published = time,
+            )) + posts
+        data.value = posts
+        return
+    }
 }

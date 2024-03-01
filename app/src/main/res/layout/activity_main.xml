@@ -1,16 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/card_post"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
+        tools:listitem="@layout/card_post" />
 
-</ScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="5dp">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_editing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="cancelmark, pencil, messageEditing"/>
+        <ImageButton
+            android:id="@+id/pencil"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:padding="10dp"
+            android:background="#F2F2F2"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pencil"
+            app:layout_constraintBottom_toBottomOf="@id/cancelmark"
+            app:layout_constraintTop_toTopOf="@id/cancelmark"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/cancel_the_changes" />
+
+        <TextView
+            android:id="@+id/messageEditing"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="10dp"
+            android:background="#F2F2F2"
+            app:layout_constraintStart_toEndOf="@id/pencil"
+            app:layout_constraintEnd_toStartOf="@id/cancelmark"
+            app:layout_constraintBottom_toBottomOf="@id/pencil"
+            app:layout_constraintTop_toTopOf="@id/cancelmark"
+            android:text="@string/edit_post"
+            android:textSize="20sp"
+            android:textColor="#aabede"
+            />
+
+        <ImageButton
+            android:id="@+id/cancelmark"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:background="#F2F2F2"
+            android:scaleType="fitCenter"
+            android:src="@drawable/cancelmark"
+            app:layout_constraintBottom_toTopOf="@id/checkmark"
+            app:layout_constraintStart_toStartOf="@id/checkmark"
+            android:contentDescription="@string/cancel_the_changes" />
+
+        <ImageButton
+            android:id="@+id/checkmark"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:background="@android:color/white"
+            android:contentDescription="@string/finish_editing_checkmark"
+            android:scaleType="fitCenter"
+            android:src="@drawable/checkmark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/checkmark"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="LabelFor,MissingConstraints" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

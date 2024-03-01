@@ -1,34 +1,32 @@
 package ru.btpit.nmedia.entyties
 
 import android.content.res.Resources
+import android.view.View
+import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import ru.btpit.nmedia.R
 import ru.btpit.nmedia.databinding.CardPostBinding
+import ru.btpit.nmedia.interfaces.OnInteractionListener
 import ru.btpit.nmedia.processing.convertForm
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeListener: OnLikeListener,
-    private val onRepostListener: OnRepostListener,
-    private val onCommentListener: OnCommentListener
+    private val listener: OnInteractionListener
 ): RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
             textFromPost.text = post.contentText
-            if(post.contentPath != null){
-                val image = ContextCompat.getDrawable(imagePost.context, post.contentPath)
-                if(image != null){
-                    imagePost.setImageDrawable(image)
-                }else{
-                    binding.imagePost.layoutParams.height = 1
-                    binding.imagePost.requestLayout()
-                }
+            val image = post.contentPath?.let { ContextCompat.getDrawable(imagePost.context, it) }
+            if(image != null){
+                if(binding.imagePost.visibility == View.GONE)
+                    binding.imagePost.visibility = View.VISIBLE
+                imagePost.setImageDrawable(image)
             }else{
-                binding.imagePost.layoutParams.height = 0
+                binding.imagePost.visibility = View.GONE
                 binding.imagePost.requestLayout()
             }
             published.text = post.published
@@ -41,14 +39,34 @@ class PostViewHolder(
                 if(post.likedByMe) R.drawable.like_active else R.drawable.like_negative
             )
             like.setOnClickListener{
-                onLikeListener(post)
+                listener.onLike(post)
             }
 
             comment.setOnClickListener{
-                onCommentListener(post)
+                listener.onComment(post)
             }
             repost.setOnClickListener{
-                onRepostListener(post)
+                listener.onRepost(post)
+            }
+
+            actionBar.setOnClickListener{
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { item ->
+                        when(item.itemId){
+                            R.id.remove -> {
+                                listener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                listener.onEdit(post)
+                                true
+
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
             }
         }
     }
