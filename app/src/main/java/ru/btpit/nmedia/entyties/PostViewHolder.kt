@@ -35,19 +35,16 @@ class PostViewHolder(
             textViews.text = convertForm(post.quantityViews)
             if(post.urlVideo != null){
                 videoImage.visibility = View.VISIBLE
-                videoImage.setImageResource(R.drawable.youtubedefault)
-                /*
+
                 val imageURL = getImageVideo(post.urlVideo)
 
                 Glide.with(videoImage.context)
+                    .asBitmap()
                     .load(imageURL)
+                    .placeholder(R.drawable.youtubedefault)
+                    .error(R.drawable.youtubedefault)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(videoImage)
-                if(videoImage.drawable == null){
-                    videoImage.setImageResource(R.drawable.youtubedefault)
-                }
-
-                 */
             }
 
             like.isChecked = post.likedByMe
