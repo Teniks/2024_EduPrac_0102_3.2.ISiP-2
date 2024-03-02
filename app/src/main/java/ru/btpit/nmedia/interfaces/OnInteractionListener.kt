@@ -9,4 +9,5 @@ interface OnInteractionListener{
     fun onEdit(post: Post) {}
     fun onRemove(post: Post) {}
     fun onView(post: Post) {}
+    fun onPlayMedia(post: Post) {}
 }

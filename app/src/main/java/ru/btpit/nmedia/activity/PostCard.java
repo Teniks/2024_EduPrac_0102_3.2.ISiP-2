@@ -1,4 +1,4 @@
-package ru.btpit.nmedia.layouts;
+package ru.btpit.nmedia.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

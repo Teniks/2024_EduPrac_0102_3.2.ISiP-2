@@ -2,7 +2,10 @@ package ru.btpit.nmedia.entyties
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getString
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.LiveData;
@@ -43,7 +46,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
     private val data = MutableLiveData(posts.toList())
     override fun getAll(): LiveData<List<Post>> = data
 
-    private var lastId: Long = 2
+    private var lastId: Long = posts.size.toLong()
     private fun nextId(): Long {
         lastId++
         return lastId

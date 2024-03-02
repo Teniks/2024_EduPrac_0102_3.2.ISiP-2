@@ -37,14 +37,27 @@ class PostViewModel: ViewModel() {
         edited.value?.let {
             val text = post.contentText.trim()
             val image = post.contentPath
+            val url = findLink(post.contentText.trim())
             if(it.contentText.trim() == text && it.contentPath == image){
                 return
             }
-            edited.value = it.copy(contentText = text, contentPath = image, author = post.author)
+            var newPost = post.copy(contentText = text, contentPath = image, author = post.author)
+            if(url != null){
+                newPost = newPost.copy(urlVideo = url)
+            }
+            edited.value = newPost
         }
     }
 
     fun edit(post: Post){
         edited.value = post
+    }
+
+    private fun findLink(text: String): String?{
+        val regex = Regex("""https\S+www\.youtube\.com\S+watch\?v=\S+""", setOf(RegexOption.IGNORE_CASE))
+        val result = regex.find(text)
+        if(result != null){
+            return result.value
+        }else return null
     }
 }

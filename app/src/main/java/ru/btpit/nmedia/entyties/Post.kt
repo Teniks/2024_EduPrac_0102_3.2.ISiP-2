@@ -1,6 +1,7 @@
 package ru.btpit.nmedia.entyties
 
 import android.graphics.drawable.Drawable
+import kotlinx.serialization.Serializable
 
 data class Post(
     val id: Long,
@@ -12,5 +13,6 @@ data class Post(
     val quantityReposts: Int,
     val quantityViews: Int,
     val contentPath: Int? = null,
+    val urlVideo: String? = null,
     val likedByMe: Boolean = false
 )

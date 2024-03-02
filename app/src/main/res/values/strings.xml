@@ -12,5 +12,8 @@
     <string name="these_are_views">These are views</string>
     <string name="finish_editing_checkmark">Finish editing checkmark</string>
     <string name="cancel_the_changes">Cancel the changes</string>
-    <string name="edit_post">Edit post</string>
+    <string name="create_post">Create new post</string>
+    <string name="chooser_share_post">Подготовка к отправке</string>
+    <string name="error_empty_content">ERROR! Content is empty</string>
+    <string name="media_file">Media file</string>
 </resources>

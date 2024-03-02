@@ -1,12 +1,11 @@
 package ru.btpit.nmedia.entyties
 
-import android.content.res.Resources
 import android.view.View
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.btpit.nmedia.R
 import ru.btpit.nmedia.databinding.CardPostBinding
 import ru.btpit.nmedia.interfaces.OnInteractionListener
@@ -22,18 +21,34 @@ class PostViewHolder(
             textFromPost.text = post.contentText
             val image = post.contentPath?.let { ContextCompat.getDrawable(imagePost.context, it) }
             if(image != null){
-                if(binding.imagePost.visibility == View.GONE)
-                    binding.imagePost.visibility = View.VISIBLE
+                if(imagePost.visibility == View.GONE)
+                    imagePost.visibility = View.VISIBLE
                 imagePost.setImageDrawable(image)
             }else{
-                binding.imagePost.visibility = View.GONE
-                binding.imagePost.requestLayout()
+                imagePost.visibility = View.GONE
+                imagePost.requestLayout()
             }
             published.text = post.published
             like.text = convertForm(post.quantityLikes)
             comment.text = convertForm(post.quantityComments)
             repost.text = convertForm(post.quantityReposts)
             textViews.text = convertForm(post.quantityViews)
+            if(post.urlVideo != null){
+                videoImage.visibility = View.VISIBLE
+                videoImage.setImageResource(R.drawable.youtubedefault)
+                /*
+                val imageURL = getImageVideo(post.urlVideo)
+
+                Glide.with(videoImage.context)
+                    .load(imageURL)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(videoImage)
+                if(videoImage.drawable == null){
+                    videoImage.setImageResource(R.drawable.youtubedefault)
+                }
+
+                 */
+            }
 
             like.isChecked = post.likedByMe
             /*like.setImageResource(
@@ -55,6 +70,10 @@ class PostViewHolder(
                 listener.onRepost(post)
             }
 
+            videoImage.setOnClickListener {
+                listener.onPlayMedia(post)
+            }
+
             actionBar.setOnClickListener{
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_post)
@@ -74,6 +93,14 @@ class PostViewHolder(
                     }
                 }.show()
             }
+        }
+    }
+    private fun getImageVideo(url: String):String?{
+        if(url.split("v=").lastIndex == 1){
+            val vUrl = url.split("v=")[1]
+            return "https://img.youtube.com/vi/$vUrl/maxresdefault.jpg"
+        }else{
+            return null
         }
     }
 }
