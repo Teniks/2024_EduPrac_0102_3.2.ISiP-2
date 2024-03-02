@@ -36,7 +36,7 @@ class PostViewHolder(
             if(post.urlVideo != null){
                 videoImage.visibility = View.VISIBLE
                 videoImage.setImageResource(R.drawable.youtubedefault)
-                /*
+
                 val imageURL = getImageVideo(post.urlVideo)
 
                 Glide.with(videoImage.context)
@@ -47,7 +47,7 @@ class PostViewHolder(
                     videoImage.setImageResource(R.drawable.youtubedefault)
                 }
 
-                 */
+
             }
 
             like.isChecked = post.likedByMe

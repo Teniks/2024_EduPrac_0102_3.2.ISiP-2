@@ -37,6 +37,7 @@ class PostRepositoryInMemoryImpl: PostRepository {
             contentText = "My first completed training work.",
             published = "28 февраля в 19:22",
             quantityLikes = 999,
+            urlVideo = "https://www.youtube.com/watch?v=VS-nCSksbZw",
             quantityComments = Random.nextInt(1, 10_000),
             quantityReposts = Random.nextInt(1, 100_000),
             quantityViews = Random.nextInt(1, 1_000_000),
