@@ -12,10 +12,10 @@ class NewPostResultContract: ActivityResultContract<Unit, String?>() {
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): String? {
-        if(resultCode == Activity.RESULT_OK){
-            return intent?.getStringExtra(Intent.EXTRA_TEXT)
+        return if(resultCode == Activity.RESULT_OK){
+            intent?.getStringExtra(Intent.EXTRA_TEXT)
         }else{
-            return null
+            null
         }
     }
 }

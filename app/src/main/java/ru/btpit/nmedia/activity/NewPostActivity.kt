@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.btpit.nmedia.R
 import ru.btpit.nmedia.databinding.ActivityNewPostBinding
-import ru.btpit.nmedia.databinding.IntentExplicitActivityBinding
 
 class NewPostActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,8 +1,8 @@
 package ru.btpit.nmedia.entyties
 
-import android.content.Context
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import ru.btpit.nmedia.interfaces.PostRepository
 
 private val empty = Post(
@@ -16,8 +16,9 @@ private val empty = Post(
     quantityViews = 0
 )
 
-class PostViewModel: ViewModel() {
-    private val repository: PostRepository = PostRepositoryInMemoryImpl()
+class PostViewModel(application: Application): AndroidViewModel(application) {
+
+    private val repository: PostRepository = PostRepositoryFileImpl(application)
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
     fun likeById(id: Long) = repository.likeById(id)
@@ -56,8 +57,6 @@ class PostViewModel: ViewModel() {
     private fun findLink(text: String): String?{
         val regex = Regex("""https\S+www\.youtube\.com\S+watch\?v=\S+""", setOf(RegexOption.IGNORE_CASE))
         val result = regex.find(text)
-        if(result != null){
-            return result.value
-        }else return null
+        return result?.value
     }
 }

@@ -1,7 +1,7 @@
 package ru.btpit.nmedia.processing
 
 fun convertForm(x: Int): String{
-    var result: String = ""
+    var result = ""
     when(x){
         in 0..999-> result = x.toString()
         in 999..9_999-> result = ((x/100).toDouble()/10).toString()  + "K"

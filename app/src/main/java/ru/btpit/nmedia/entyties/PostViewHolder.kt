@@ -93,11 +93,11 @@ class PostViewHolder(
         }
     }
     private fun getImageVideo(url: String):String?{
-        if(url.split("v=").lastIndex == 1){
+        return if(url.split("v=").lastIndex == 1){
             val vUrl = url.split("v=")[1]
-            return "https://img.youtube.com/vi/$vUrl/maxresdefault.jpg"
+            "https://img.youtube.com/vi/$vUrl/maxresdefault.jpg"
         }else{
-            return null
+            null
         }
     }
 }

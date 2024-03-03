@@ -1,6 +1,5 @@
 package ru.btpit.nmedia.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,17 +8,14 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.launch
 import ru.btpit.nmedia.databinding.ActivityMainBinding
 import ru.btpit.nmedia.entyties.PostViewModel
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import ru.btpit.nmedia.R
 import ru.btpit.nmedia.databinding.PostEditingCardBinding
-import ru.btpit.nmedia.entyties.*;
+import ru.btpit.nmedia.entyties.*
 import ru.btpit.nmedia.interfaces.OnInteractionListener
-import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +32,8 @@ class MainActivity : AppCompatActivity() {
     private fun defaultSettings(binding: ActivityMainBinding, bindingEditPost: PostEditingCardBinding){
 
         val viewModel: PostViewModel by viewModels()
-        val adapter: PostsAdapter =
+
+        val adapter =
             PostsAdapter( object: OnInteractionListener {
                 override fun onLike(post: Post) {
                     viewModel.likeById(post.id)
@@ -152,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun createNewPost(text: String, viewModel:PostViewModel){
+    private fun createNewPost(text: String, viewModel:PostViewModel){
         viewModel.changeContent(
             Post(
                 id = 0,

@@ -3,7 +3,6 @@ package ru.btpit.nmedia.entyties
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import ru.btpit.nmedia.databinding.CardPostBinding
 import ru.btpit.nmedia.interfaces.OnInteractionListener
 
