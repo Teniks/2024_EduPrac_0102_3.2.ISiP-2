@@ -1,6 +1,5 @@
 package ru.btpit.nmedia.activity
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -15,9 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import ru.btpit.nmedia.R
-import ru.btpit.nmedia.databinding.PostEditingCardBinding
 import ru.btpit.nmedia.entyties.*
 import ru.btpit.nmedia.interfaces.OnInteractionListener
 
@@ -121,7 +120,9 @@ class FeedFragment : Fragment() {
                 replace(R.id.fragmentContainer, PostEditingCard())
             }
         }
+
     }
+
     object AndroidUtils{
         fun hideKeyboard(view: View) {
             val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
