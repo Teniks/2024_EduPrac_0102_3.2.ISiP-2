@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.AlonePostFragment"
+    android:padding="16dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/im_wagon"
+            tools:ignore="MissingConstraints"
+            android:contentDescription="@string/channel_avatar" />
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="@id/avatarImageView"
+            app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
+            app:layout_constraintLeft_toRightOf="@id/avatarImageView"
+            app:layout_constraintBottom_toTopOf="@id/author"
+            android:text="@string/name_public_group"/>
+
+        <TextView
+            android:id="@+id/published"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/author"
+            app:layout_constraintTop_toBottomOf="@id/author"
+            app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
+            app:layout_constraintLeft_toLeftOf="@id/author"
+            android:text="@string/date_published"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/action_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/action_button_with_post"
+            app:icon="@drawable/baseline_more_vert_24"
+            app:layout_constraintBottom_toBottomOf="@id/avatarImageView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatarImageView"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierPost"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="avatarImageView, author, published, action_bar"/>
+
+        <TextView
+            android:id="@+id/textFromPost"
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/barrierPost"
+            android:text="@string/text_from_post"
+            />
+
+        <ImageView
+            android:id="@+id/imagePost"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            app:layout_constraintTop_toBottomOf="@id/textFromPost"
+            android:src="@mipmap/im_wagon_foreground"
+            android:contentDescription="@string/post_image" />
+
+        <ImageView
+            android:id="@+id/videoImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@id/imagePost"
+            app:layout_constraintStart_toStartOf="@id/imagePost"
+            app:layout_constraintEnd_toEndOf="@id/imagePost"
+            android:contentDescription="@string/media_file"
+            android:visibility="gone"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/like"
+            android:padding="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            app:layout_constraintTop_toBottomOf="@id/videoImage"
+            app:icon="@drawable/like"
+            app:iconGravity="textStart"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/it_is_like"
+            style="@style/Widget.AppTheme.LikeCheckBox"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/comment"
+            android:padding="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/comment"
+            app:iconGravity="textStart"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="12dp"
+            app:layout_constraintTop_toBottomOf="@id/videoImage"
+            app:layout_constraintStart_toEndOf="@id/like"
+            android:contentDescription="@string/it_is_comments"
+            style="@style/Widget.AppTheme.LikeCheckBox"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/repost"
+            android:padding="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/pointer"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toBottomOf="@id/videoImage"
+            app:layout_constraintStart_toEndOf="@id/comment"
+            android:layout_marginStart="12dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/it_is_repost"
+            style="@style/Widget.AppTheme.LikeCheckBox"/>
+
+        <ImageView
+            android:id="@+id/views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_marginEnd="5dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/eye"
+            app:layout_constraintEnd_toStartOf="@id/textViews"
+            app:layout_constraintRight_toLeftOf="@id/textViews"
+            app:layout_constraintTop_toBottomOf="@id/videoImage"
+            android:contentDescription="@string/these_are_views" />
+
+        <TextView
+            android:id="@+id/textViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/imagePost"
+            app:layout_constraintTop_toTopOf="@id/views"
+            app:layout_constraintBottom_toBottomOf="@id/views" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -13,10 +13,13 @@ class PostRepositoryFileImpl(private val context: Context): PostRepository {
     private val gson = Gson()
     private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
     private val filename = "posts.json"
-    private var nextId = 1L
     private var posts = emptyList<Post>()
     private val data = MutableLiveData(posts.toList())
-
+    private var lastId: Long = posts.size.toLong()
+    private fun nextId(): Long{
+        lastId = posts.size.toLong() + 1
+        return lastId
+    }
     init {
         try {
             val file = context.filesDir.resolve(filename)
@@ -39,16 +42,14 @@ class PostRepositoryFileImpl(private val context: Context): PostRepository {
             val time = LocalDateTime.now().dayOfMonth.toString() + " " + LocalDateTime.now().month + " " + LocalDateTime.now().hour + ":" + LocalDateTime.now().minute
             posts = listOf(
                 post.copy(
-                    id = nextId++,
+                    id = nextId(),
                     published = time
                 )) + posts
-            data.value = posts
-            view(nextId)
+            view(lastId)
             sync()
+            data.value = posts
             return
         }
-
-
 
         posts = posts.map{
             if(it.id != post.id) it else it.copy(contentText = post.contentText)
@@ -92,6 +93,7 @@ class PostRepositoryFileImpl(private val context: Context): PostRepository {
 
     override fun removeById(id: Long) {
         posts = posts.filter { it.id != id }
+        lastId--
         sync()
         data.value = posts
     }

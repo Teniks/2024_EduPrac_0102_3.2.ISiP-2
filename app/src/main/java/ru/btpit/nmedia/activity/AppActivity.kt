@@ -3,18 +3,26 @@ package ru.btpit.nmedia.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
 import ru.btpit.nmedia.R
-import ru.btpit.nmedia.databinding.IntentHandlerActivityBinding
+import ru.btpit.nmedia.databinding.ActivityAppBinding
 
-class IntentHandlerActivity: AppCompatActivity() {
+class AppActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.intent_handler_activity)
 
-        val binding = IntentHandlerActivityBinding.inflate(layoutInflater)
+        val binding = ActivityAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //intentHandlerSet(binding)
 
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainer, FeedFragment())
+        }
+    }
+
+    private fun intentHandlerSet(binding: ActivityAppBinding){
         intent?.let {
             if (it.action == Intent.ACTION_SEND){
                 return@let

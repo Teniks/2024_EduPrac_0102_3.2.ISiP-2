@@ -10,4 +10,5 @@ interface OnInteractionListener{
     fun onRemove(post: Post) {}
     fun onView(post: Post) {}
     fun onPlayMedia(post: Post) {}
+    fun onNavigateToAlonePost(post: Post) {}
 }

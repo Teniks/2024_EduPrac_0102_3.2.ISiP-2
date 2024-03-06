@@ -16,4 +16,7 @@
     <string name="chooser_share_post">Подготовка к отправке</string>
     <string name="error_empty_content">ERROR! Content is empty</string>
     <string name="media_file">Media file</string>
+    <string name="create_new_post">Create new post</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

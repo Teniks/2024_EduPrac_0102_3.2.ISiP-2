@@ -1,22 +1,31 @@
-package ru.btpit.nmedia.entyties
+package ru.btpit.nmedia.activity
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import ru.btpit.nmedia.R
-import ru.btpit.nmedia.databinding.CardPostBinding
+import ru.btpit.nmedia.databinding.FragmentAlonePostBinding
+import ru.btpit.nmedia.entyties.Post
 import ru.btpit.nmedia.interfaces.OnInteractionListener
 import ru.btpit.nmedia.processing.convertForm
 import ru.btpit.nmedia.processing.getImageVideo
 
-class PostViewHolder(
-    private val binding: CardPostBinding,
-    private val listener: OnInteractionListener
-): RecyclerView.ViewHolder(binding.root) {
-    fun bind(post: Post) {
+
+class AlonePostFragment(private val listener: OnInteractionListener,
+                        private val post: Post) : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentAlonePostBinding.inflate(inflater, container, false)
+
         binding.apply {
             author.text = post.author
             textFromPost.text = post.contentText
@@ -92,22 +101,9 @@ class PostViewHolder(
                 }.show()
             }
 
-            root.setOnClickListener{
-                listener.onNavigateToAlonePost(post)
-            }
-            textFromPost.setOnClickListener {
-                listener.onNavigateToAlonePost(post)
-            }
-            imagePost.setOnClickListener{
-                listener.onNavigateToAlonePost(post)
-            }
-            author.setOnClickListener {
-                listener.onNavigateToAlonePost(post)
-            }
-            avatarImageView.setOnClickListener {
-                listener.onNavigateToAlonePost(post)
-            }
-        }
-    }
 
+        }
+
+        return binding.root
+    }
 }
