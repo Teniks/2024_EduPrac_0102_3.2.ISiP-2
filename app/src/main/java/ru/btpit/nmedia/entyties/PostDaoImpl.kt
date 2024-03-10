@@ -6,7 +6,22 @@ import android.database.sqlite.SQLiteDatabase
 import ru.btpit.nmedia.interfaces.PostDAO
 
 class PostDaoImpl(private val db: SQLiteDatabase) : PostDAO{
-    companion object{}
+    companion object{
+
+        val DDL: String = "CREATE TABLE \"Posts\" (\n" +
+                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
+                "\t\"author\"\tTEXT NOT NULL,\n" +
+                "\t\"contentText\"\tTEXT NOT NULL,\n" +
+                "\t\"published\"\tTEXT NOT NULL,\n" +
+                "\t\"quantityLikes\"\tINTEGER DEFAULT 0,\n" +
+                "\t\"quantityComments\"\tINTEGER DEFAULT 0,\n" +
+                "\t\"quantityReposts\"\tINTEGER DEFAULT 0,\n" +
+                "\t\"quantityViews\"\tINTEGER DEFAULT 0,\n" +
+                "\t\"contentPath\"\tINT DEFAULT NULL,\n" +
+                "\t\"urlVideo\"\tTEXT DEFAULT NULL,\n" +
+                "\t\"likedByMe\"\tINTEGER DEFAULT 0\n" +
+                ")"
+    }
     object PostColumns {
         const val TABLE = "Posts"
         const val COLUMN_ID = "id"
@@ -19,7 +34,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDAO{
         const val COLUMN_QUANTITY_VIEWS = "quantityViews"
         const val COLUMN_CONTENT_PATH = "contentPath"
         const val COLUMN_URL_VIDEO = "urlVideo"
-        const val COLUMN_LIKED_BY_ME = "linkedByMe"
+        const val COLUMN_LIKED_BY_ME = "likedByMe"
         val COLUMN_ALL = arrayOf(
             COLUMN_ID,
             COLUMN_AUTHOR,
