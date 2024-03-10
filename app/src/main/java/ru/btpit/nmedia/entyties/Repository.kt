@@ -34,10 +34,13 @@ class PostRepositorySQLiteImpl(private val dao: PostDAO): PostRepository {
                 if(it.id != id) it else saved
             }
         }
+
+        lastId = posts.size.toLong()
         data.value = posts
     }
 
     override fun likeById(id: Long) {
+        dao.likedById(id)
         posts = posts.map{
             if (it.id != id) it else it.copy(likedByMe = !it.likedByMe, quantityLikes =
             if(it.likedByMe) it.quantityLikes-1 else it.quantityLikes+1)
@@ -46,6 +49,7 @@ class PostRepositorySQLiteImpl(private val dao: PostDAO): PostRepository {
     }
 
     override fun repost(id: Long) {
+        dao.repostById(id)
         posts = posts.map {
             if(it.id != id) it else it.copy(quantityReposts = it.quantityReposts+1)
         }
@@ -53,6 +57,7 @@ class PostRepositorySQLiteImpl(private val dao: PostDAO): PostRepository {
     }
 
     override fun comment(id: Long) {
+        dao.commentById(id)
         posts = posts.map {
             if(it.id != id) it else it.copy(quantityComments = it.quantityComments+1)
         }
@@ -60,6 +65,7 @@ class PostRepositorySQLiteImpl(private val dao: PostDAO): PostRepository {
     }
 
     override fun view(id: Long) {
+        dao.commentById(id)
         posts = posts.map {
             if (it.id != id) it else it.copy(quantityViews = it.quantityViews+1)
         }
@@ -67,18 +73,20 @@ class PostRepositorySQLiteImpl(private val dao: PostDAO): PostRepository {
     }
 
     override fun removeById(id: Long) {
+        dao.removeById(id)
         posts = posts.filter { it.id != id }
-        lastId--
+        lastId = posts.size.toLong()
         data.value = posts
     }
 
     override fun edit(post: Post, newText: String) {
         val time = LocalDateTime.now().dayOfMonth.toString() + " " + LocalDateTime.now().month + " " + LocalDateTime.now().hour + ":" + LocalDateTime.now().minute
-        posts = listOf(
-            post.copy(
-                contentText = newText,
-                published = time,
-            )) + posts
+        val newPost = post.copy(
+            contentText = newText,
+            published = time,
+        )
+        dao.save(newPost)
+        posts = listOf(newPost) + posts
         data.value = posts
         return
     }

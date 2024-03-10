@@ -20,7 +20,12 @@ class PostViewHolder(
         binding.apply {
             author.text = post.author
             textFromPost.text = post.contentText
-            val image = post.contentPath?.let { ContextCompat.getDrawable(imagePost.context, it) }
+            val image = post.contentPath?.let { if (it != 0){
+                ContextCompat.getDrawable(imagePost.context, it)
+            } else{
+                null
+            }
+            }
             if(image != null){
                 if(imagePost.visibility == View.GONE)
                     imagePost.visibility = View.VISIBLE

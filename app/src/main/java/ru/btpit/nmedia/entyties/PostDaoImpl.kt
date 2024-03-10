@@ -80,7 +80,7 @@ class PostDaoImpl(private val db: SQLiteDatabase) : PostDAO{
         db.query(
             PostColumns.TABLE,
             PostColumns.COLUMN_ALL,
-            "${PostColumns.COLUMN_ID} = ?",
+            "${PostColumns.COLUMN_ID} =?",
             arrayOf(id.toString()),
             null,
             null,
