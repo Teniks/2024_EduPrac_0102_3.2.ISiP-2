@@ -7,20 +7,21 @@ import ru.btpit.nmedia.interfaces.PostDAO
 
 class PostDaoImpl(private val db: SQLiteDatabase) : PostDAO{
     companion object{
-
-        val DDL: String = "CREATE TABLE \"Posts\" (\n" +
-                "\t\"id\"\tINTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n" +
-                "\t\"author\"\tTEXT NOT NULL,\n" +
-                "\t\"contentText\"\tTEXT NOT NULL,\n" +
-                "\t\"published\"\tTEXT NOT NULL,\n" +
-                "\t\"quantityLikes\"\tINTEGER DEFAULT 0,\n" +
-                "\t\"quantityComments\"\tINTEGER DEFAULT 0,\n" +
-                "\t\"quantityReposts\"\tINTEGER DEFAULT 0,\n" +
-                "\t\"quantityViews\"\tINTEGER DEFAULT 0,\n" +
-                "\t\"contentPath\"\tINT DEFAULT NULL,\n" +
-                "\t\"urlVideo\"\tTEXT DEFAULT NULL,\n" +
-                "\t\"likedByMe\"\tINTEGER DEFAULT 0\n" +
-                ")"
+        val DDL = """
+        CREATE TABLE ${PostColumns.TABLE} (
+            ${PostColumns.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
+            ${PostColumns.COLUMN_AUTHOR} TEXT NOT NULL,
+            ${PostColumns.COLUMN_CONTENT_TEXT} TEXT NOT NULL,
+            ${PostColumns.COLUMN_PUBLISHED} TEXT NOT NULL,
+            ${PostColumns.COLUMN_QUANTITY_LIKES} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_QUANTITY_COMMENTS} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_QUANTITY_REPOSTS} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_QUANTITY_VIEWS} INTEGER NOT NULL DEFAULT 0,
+            ${PostColumns.COLUMN_CONTENT_PATH} INTEGER DEFAULT NULL,
+            ${PostColumns.COLUMN_QUANTITY_LIKES} TEXT DEFAULT NULL,
+            ${PostColumns.COLUMN_LIKED_BY_ME} BOOLEAN NOT NULL DEFAULT 0,
+        );
+        """.trimIndent()
     }
     object PostColumns {
         const val TABLE = "Posts"
